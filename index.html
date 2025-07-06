@@ -266,7 +266,7 @@
             const payload = { contents: chatHistory };
 
             // Ensure GEMINI_API_KEY is not empty before making the fetch request
-            if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_ACTUAL_GEMINI_API_KEY_HERE') {
+            if (!GEMINI_API_KEY || GEMINI_API_KEY === X-goog-api-key) {
                 showMessage("API Key is missing. Please obtain a Gemini API key from Google AI Studio (aistudio.google.com) and replace 'YOUR_ACTUAL_GEMINI_API_KEY_HERE' in the script.", 'error');
                 loadingIndicator.classList.add('hidden');
                 return; // Stop execution if API key is not set
