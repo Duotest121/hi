@@ -112,7 +112,7 @@
 
     <div class="explanation">
       <p><i class="fa-solid fa-circle-info icon"></i><strong>Factorial (n!)</strong>: Multiply all numbers from 1 to n.<br>
-      Example: 5! = 5 � 4 � 3 � 2 � 1 = 120</p>
+      Example: 5! = 5 × 4 × 3 × 2 × 1 = 120</p>
     </div>
 
     <input type="number" id="factorialInput" placeholder="Enter a number for n!">
@@ -134,8 +134,8 @@
 
     <h2><i class="fa-solid fa-object-group icon"></i> Combinations (nCr)</h2>
     <div class="explanation">
-      <p><strong>Combinations</strong>: Selections where order doesn�t matter.<br>
-      Formula: nCr = n! / [r! � (n - r)!]</p>
+      <p><strong>Combinations</strong>: Selections where order doesn’t matter.<br>
+      Formula: nCr = n! / [r! × (n - r)!]</p>
     </div>
 
     <button onclick="calculateCombination()"><i class="fa-solid fa-list-ol icon"></i>Calculate nCr</button>
@@ -156,7 +156,7 @@
     function calculateFactorial() {
       const n = parseInt(document.getElementById("factorialInput").value);
       if (isNaN(n) || n < 0) {
-        document.getElementById("factorialResult").innerText = "? Please enter a valid non-negative number.";
+        document.getElementById("factorialResult").innerText = "❌ Please enter a valid non-negative number.";
         return;
       }
       const result = factorial(n);
@@ -167,7 +167,7 @@
       const n = parseInt(document.getElementById("nInput").value);
       const r = parseInt(document.getElementById("rInput").value);
       if (isNaN(n) || isNaN(r) || n < 0 || r < 0 || r > n) {
-        document.getElementById("permutationResult").innerText = "? Enter valid values where n = r = 0.";
+        document.getElementById("permutationResult").innerText = "❌ Enter valid values where n ≥ r ≥ 0.";
         return;
       }
       const result = factorial(n) / factorial(n - r);
@@ -178,7 +178,7 @@
       const n = parseInt(document.getElementById("nInput").value);
       const r = parseInt(document.getElementById("rInput").value);
       if (isNaN(n) || isNaN(r) || n < 0 || r < 0 || r > n) {
-        document.getElementById("combinationResult").innerText = "? Enter valid values where n = r = 0.";
+        document.getElementById("combinationResult").innerText = "❌ Enter valid values where n ≥ r ≥ 0.";
         return;
       }
       const result = factorial(n) / (factorial(r) * factorial(n - r));
@@ -187,3 +187,4 @@
   </script>
 </body>
 </html>
+
