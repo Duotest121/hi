@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,8 @@
         /* Custom styles for the Inter font and overall page layout */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #E6E6FA; /* Light gray background for a clean look */
+            /* Updated background-color to a jungle-themed green */
+            background-color: #22577A; /* A deep teal/green for a jungle feel */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,7 +26,8 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<!-- Removed bg-gray-100 from body class as background-color is now set in style block -->
+<body class="flex items-center justify-center min-h-screen p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-200">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Factorial Calculator with AI Insights</h1>
 
@@ -50,18 +53,22 @@
             Calculate Factorial
         </button>
 
+        <!-- Button for LLM feature: Explain and Apply Factorials -->
+        <!-- Updated background color to a "jungle" green theme -->
         <button
             id="explainFactorialButton"
-            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md mb-3"
+            class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md mb-3"
         >
-            Explain and Apply Factorials ?
+            Explain and Apply Factorials ✨
         </button>
 
+        <!-- New button for LLM feature: Explore Related Concepts -->
+        <!-- Updated background color to a "jungle" green theme -->
         <button
             id="exploreConceptsButton"
-            class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md"
+            class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md"
         >
-            Explore Related Concepts ?
+            Explore Related Concepts ✨
         </button>
 
         <!-- Display areas for results and explanations -->
