@@ -4,33 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factorial Calculator with AI Insights</title>
+
     <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Custom styles for the Inter font and overall page layout */
+        /* Custom styles for Inter font and overall page layout */
         body {
             font-family: 'Inter', sans-serif;
-            /* Updated background-color to a jungle-themed green */
-            background-color: #22577A; /* A deep teal/green for a jungle feel */
+            background-color: #22577A; /* Deep teal/jungle theme */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Ensures the body takes at least the full viewport height */
+            min-height: 100vh;
             margin: 0;
-            padding: 1rem; /* Adds padding around the content for better spacing on small screens */
+            padding: 1rem;
         }
-        /* Limits the maximum width of the main container on larger screens */
         .max-w-md {
-            max-width: 28rem; /* Tailwind's default max-w-md for consistent sizing */
+            max-width: 28rem; /* Consistent with Tailwind's max-w-md */
         }
     </style>
 </head>
-<!-- Removed bg-gray-100 from body class as background-color is now set in style block -->
+
 <body class="flex items-center justify-center min-h-screen p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-200">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Factorial Calculator with AI Insights</h1>
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
+            Factorial Calculator with AI Insights
+        </h1>
 
-        <!-- Input section for the number -->
+        <!-- Input section for number -->
         <div class="mb-4">
             <label for="numberInput" class="block text-gray-700 text-sm font-semibold mb-2">
                 Enter a non-negative integer:
@@ -44,7 +49,7 @@
             >
         </div>
 
-        <!-- Buttons for various functionalities -->
+        <!-- Buttons -->
         <button
             id="calculateButton"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md mb-3"
@@ -52,8 +57,6 @@
             Calculate Factorial
         </button>
 
-        <!-- Button for LLM feature: Explain and Apply Factorials -->
-        <!-- Updated background color to a "jungle" green theme -->
         <button
             id="explainFactorialButton"
             class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md mb-3"
@@ -61,8 +64,6 @@
             Explain and Apply Factorials ✨
         </button>
 
-        <!-- New button for LLM feature: Explore Related Concepts -->
-        <!-- Updated background color to a "jungle" green theme -->
         <button
             id="exploreConceptsButton"
             class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-75 transition duration-200 ease-in-out transform hover:scale-105 shadow-md"
@@ -70,29 +71,14 @@
             Explore Related Concepts ✨
         </button>
 
-        <!-- Display areas for results and explanations -->
-        <div id="resultDisplay" class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 text-blue-800 text-lg font-semibold hidden">
-            <!-- Factorial calculation result will be displayed here -->
-        </div>
+        <!-- Display areas -->
+        <div id="resultDisplay" aria-live="polite" class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200 text-blue-800 text-lg font-semibold hidden"></div>
+        <div id="stepsDisplay" aria-live="polite" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 text-base hidden overflow-x-auto"></div>
+        <div id="llmExplanationDisplay" aria-live="polite" class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200 text-purple-800 text-base hidden"></div>
+        <div id="llmConceptsDisplay" aria-live="polite" class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200 text-teal-800 text-base hidden"></div>
+        <div id="messageBox" aria-live="polite" class="mt-4 p-4 bg-red-100 rounded-lg border border-red-300 text-red-700 text-base hidden"></div>
 
-        <div id="stepsDisplay" class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 text-gray-700 text-base hidden overflow-x-auto">
-            <!-- Step-by-step factorial solution will be displayed here -->
-        </div>
-
-        <div id="llmExplanationDisplay" class="mt-4 p-4 bg-purple-50 rounded-lg border border-purple-200 text-purple-800 text-base hidden">
-            <!-- LLM-generated factorial explanation will be displayed here -->
-        </div>
-
-        <div id="llmConceptsDisplay" class="mt-4 p-4 bg-teal-50 rounded-lg border border-teal-200 text-teal-800 text-base hidden">
-            <!-- LLM-generated related concepts (permutations, combinations) will be displayed here -->
-        </div>
-
-        <!-- Message box for errors or informational messages -->
-        <div id="messageBox" class="mt-4 p-4 bg-red-100 rounded-lg border border-red-300 text-red-700 text-base hidden">
-            <!-- Error messages or warnings will be displayed here -->
-        </div>
-
-        <!-- Loading indicator for API calls -->
+        <!-- Loading indicator -->
         <div id="loadingIndicator" class="mt-4 hidden text-center text-gray-600">
             <div class="animate-spin inline-block w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full"></div>
             <p class="ml-2 inline-block">Generating explanation...</p>
@@ -100,7 +86,7 @@
     </div>
 
     <script>
-        // Get references to HTML elements by their IDs
+        // Get references
         const numberInput = document.getElementById('numberInput');
         const calculateButton = document.getElementById('calculateButton');
         const explainFactorialButton = document.getElementById('explainFactorialButton');
@@ -112,15 +98,10 @@
         const messageBox = document.getElementById('messageBox');
         const loadingIndicator = document.getElementById('loadingIndicator');
 
-        // IMPORTANT: Replace 'YOUR_ACTUAL_GEMINI_API_KEY_HERE' with your actual Gemini API key.
-        // You can obtain a key from Google AI Studio (aistudio.google.com).
-        const GEMINI_API_KEY = 'AIzaSyD4jnssxOaGupPtVLawV6irXapgbX-bT5U'; // <<<--- REPLACE THIS WITH YOUR KEY
+        // IMPORTANT: API key security
+        const GEMINI_API_KEY = ''; // <-- Leave blank for security. Use a backend proxy.
         const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
-        /**
-         * Clears all display areas (result, steps, message box, LLM explanations)
-         * and hides the loading indicator.
-         */
         function clearDisplays() {
             resultDisplay.classList.add('hidden');
             stepsDisplay.classList.add('hidden');
@@ -133,196 +114,124 @@
             llmExplanationDisplay.textContent = '';
             llmConceptsDisplay.textContent = '';
             messageBox.textContent = '';
-
             loadingIndicator.classList.add('hidden');
         }
 
-        /**
-         * Displays a message in the message box.
-         * @param {string} message - The message content to display.
-         * @param {string} type - The type of message ('error' or 'info').
-         * 'error' will apply red styling, 'info' blue.
-         */
         function showMessage(message, type = 'info') {
-            clearDisplays(); // Clear any previous displays before showing a new message
+            clearDisplays();
             messageBox.textContent = message;
-            messageBox.classList.remove('hidden'); // Make the message box visible
-
-            // Apply styling based on message type
+            messageBox.classList.remove('hidden');
             if (type === 'error') {
-                messageBox.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-300');
                 messageBox.classList.add('bg-red-100', 'border-red-300', 'text-red-700');
             } else {
-                messageBox.classList.remove('bg-red-100', 'border-red-300', 'text-red-700');
                 messageBox.classList.add('bg-blue-100', 'border-blue-300', 'text-blue-800');
             }
         }
 
-        /**
-         * Calculates the factorial of a non-negative integer.
-         * @param {number} n - The non-negative integer for which to calculate the factorial.
-         * @returns {number|string} The factorial of n, or an error message string if the input is invalid.
-         */
         function calculateFactorial(n) {
-            // Input validation: ensure n is an integer and non-negative
             if (typeof n !== 'number' || n < 0 || !Number.isInteger(n)) {
                 return "Input must be a non-negative integer.";
             }
-            // Base case: factorial of 0 is 1
-            if (n === 0) {
-                return 1;
-            } else {
-                let factorial = 1;
-                // Loop from 1 up to n to calculate the factorial
-                for (let i = 1; i <= n; i++) {
-                    factorial *= i;
-                }
-                return factorial;
+            if (n > 20) {
+                return "Number too large. Please enter a number ≤ 20.";
             }
+            return n === 0 ? 1 : Array.from({ length: n }, (_, i) => i + 1).reduce((a, b) => a * b, 1);
         }
 
-        /**
-         * Generates the step-by-step calculation of a factorial.
-         * @param {number} n - The non-negative integer for which to show the factorial steps.
-         * @returns {string} A string representing the step-by-step calculation (e.g., "5! = 5 x 4 x 3 x 2 x 1 = 120").
-         */
         function solveFactorialSteps(n) {
-            // Input validation for steps function
             if (typeof n !== 'number' || n < 0 || !Number.isInteger(n)) {
                 return "Invalid input for factorial steps.";
             }
-            // Base case for 0!
             if (n === 0) {
                 return "0! = 1";
-            } else {
-                let steps = `${n}! = `;
-                // Build the multiplication string in descending order
-                for (let i = n; i > 0; i--) {
-                    steps += i;
-                    if (i > 1) {
-                        steps += " x "; // Add " x " between numbers
-                    }
-                }
-                // Append the final calculated factorial result
-                steps += ` = ${calculateFactorial(n)}`;
-                return steps;
             }
+            const steps = `${n}! = ${Array.from({ length: n }, (_, i) => n - i).join(' x ')} = ${calculateFactorial(n)}`;
+            return steps;
         }
 
-        // Event listener for the "Calculate Factorial" button
         calculateButton.addEventListener('click', () => {
-            clearDisplays(); // Clear previous results and messages
-
+            clearDisplays();
             const inputValue = numberInput.value;
-            const number = parseInt(inputValue, 10); // Parse input to an integer
+            const number = parseInt(inputValue, 10);
 
-            // Validate if input is empty
             if (inputValue.trim() === '') {
                 showMessage("Please enter a number.", 'error');
                 return;
             }
-
-            // Validate if input is a valid integer
             if (isNaN(number) || !Number.isInteger(number)) {
                 showMessage("Invalid input. Please enter a whole number.", 'error');
                 return;
             }
-
-            // Validate if input is non-negative
             if (number < 0) {
-                showMessage("Factorial is not defined for negative numbers. Please enter a non-negative integer.", 'error');
+                showMessage("Factorial is not defined for negative numbers.", 'error');
                 return;
             }
 
-            // Calculate and display the factorial result
             const factorialResult = calculateFactorial(number);
             resultDisplay.textContent = `The factorial of ${number} is: ${factorialResult}`;
             resultDisplay.classList.remove('hidden');
 
-            // Display step-by-step solution only for numbers up to 10 for readability
             if (number <= 10) {
-                const steps = solveFactorialSteps(number);
-                stepsDisplay.textContent = `Step-by-step solution: ${steps}`;
+                stepsDisplay.textContent = solveFactorialSteps(number);
                 stepsDisplay.classList.remove('hidden');
             } else {
-                stepsDisplay.textContent = "Step-by-step solution is not shown for numbers greater than 10 for readability.";
+                stepsDisplay.textContent = "Step-by-step solution not shown for numbers >10 for readability.";
                 stepsDisplay.classList.remove('hidden');
             }
         });
 
-        /**
-         * Handles the API call to Gemini for explanations or related concepts.
-         * This function centralizes the logic for making fetch requests to the Gemini API.
-         * @param {string} prompt - The text prompt to send to the Gemini API.
-         * @param {HTMLElement} displayElement - The HTML element where the API response will be displayed.
-         * @param {string} loadingText - The text to show in the loading indicator while the API call is in progress.
-         */
         async function fetchGeminiResponse(prompt, displayElement, loadingText) {
-            clearDisplays(); // Clear all existing displays before showing new content
-            loadingIndicator.classList.remove('hidden'); // Show the loading spinner
-            loadingIndicator.querySelector('p').textContent = loadingText; // Update loading text
+            clearDisplays();
+            loadingIndicator.classList.remove('hidden');
+            loadingIndicator.querySelector('p').textContent = loadingText;
+
+            if (!GEMINI_API_KEY) {
+                showMessage("API Key is missing. Set up a backend proxy for security.", 'error');
+                loadingIndicator.classList.add('hidden');
+                return;
+            }
 
             const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
             const payload = { contents: chatHistory };
 
-            // Ensure GEMINI_API_KEY is not empty before making the fetch request
-            if (!GEMINI_API_KEY || GEMINI_API_KEY === AIzaSyD4jnssxOaGupPtVLawV6irXapgbX-bT5U) {
-                showMessage("API Key is missing. Please obtain a Gemini API key from Google AI Studio (aistudio.google.com) and replace 'YOUR_ACTUAL_GEMINI_API_KEY_HERE' in the script.", 'error');
-                loadingIndicator.classList.add('hidden');
-                return; // Stop execution if API key is not set
-            }
-
             try {
-                // Make the fetch request to the Gemini API
                 const response = await fetch(GEMINI_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-
-                const result = await response.json(); // Parse the JSON response
-
-                // Check if the response contains valid content from the LLM
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0) {
                     const text = result.candidates[0].content.parts[0].text;
-                    // Display the text, replacing newlines with <br> for HTML rendering
                     displayElement.innerHTML = text.replace(/\n/g, '<br>');
-                    displayElement.classList.remove('hidden'); // Make the display element visible
+                    displayElement.classList.remove('hidden');
                 } else {
-                    // Handle cases where the API response structure is unexpected
-                    showMessage(`Could not generate ${loadingText.toLowerCase().replace('generating ', '')}. Please try again.`, 'error');
+                    showMessage("Could not generate response. Try again.", 'error');
                 }
             } catch (error) {
-                // Catch and log any network or API errors
-                console.error(`Error calling Gemini API for ${loadingText.toLowerCase()}:`, error);
-                showMessage(`An error occurred while fetching ${loadingText.toLowerCase()}. Please check your network connection or try again later.`, 'error');
+                console.error(`Error calling Gemini API:`, error);
+                showMessage("Error fetching data. Check network or backend proxy.", 'error');
             } finally {
-                // Always hide the loading indicator and reset its text after the operation
                 loadingIndicator.classList.add('hidden');
-                loadingIndicator.querySelector('p').textContent = 'Generating explanation...'; // Reset to default
             }
         }
 
-        // Event listener for the "Explain and Apply Factorials" button
         explainFactorialButton.addEventListener('click', () => {
-            const prompt = "Explain what a factorial is in simple terms and provide a few real-world applications or examples where factorials are used. Keep the explanation concise and easy to understand.";
+            const prompt = "Explain what a factorial is in simple terms and give some real-world examples.";
             fetchGeminiResponse(prompt, llmExplanationDisplay, 'Generating explanation...');
         });
 
-        // Event listener for the "Explore Related Concepts" button
         exploreConceptsButton.addEventListener('click', () => {
-            const prompt = "Explain the concepts of permutations and combinations in simple terms, and how they relate to factorials. Provide a simple example for each. Keep the explanation concise and easy to understand.";
+            const prompt = "Explain permutations and combinations and how they relate to factorials.";
             fetchGeminiResponse(prompt, llmConceptsDisplay, 'Generating related concepts...');
         });
 
-        // Optional: Allow pressing the Enter key in the input field to trigger the calculation
         numberInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                calculateButton.click(); // Simulate a click on the calculate button
+                calculateButton.click();
             }
         });
     </script>
 </body>
 </html>
+
